@@ -45,6 +45,34 @@ You need script like this:
 </script>
 ```
 
+引用自[完美解决searchableselect不支持change事件的方法](https://www.jianshu.com/p/0c530ee3a4e7)
+
+```javascript
+// 完美解决searchableselect不支持change事件的方法
+selectItem: function(item){
+      if(this.hasCurrentSelectedItem())
+        this.currentSelectedItem.removeClass('selected');
+ 
+      this.currentSelectedItem = item;
+      item.addClass('selected');
+ 
+      this.hoverItem(item);
+ 
+      this.holder.text(item.text());
+      var value = item.data('value');
+      this.holder.data('value', value);
+      this.element.val(value);
+    
+       //模拟select触发change事件
+      this.element.trigger('change');       
+      
+      if(this.options.afterSelectItem){
+        this.options.afterSelectItem.apply(this);
+      }
+    },
+
+```
+
 # Author
 
 David Qin
